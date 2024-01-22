@@ -43,6 +43,18 @@ app.config['OAUTH2_PROVIDERS'] = {
         },
         'scopes': ['user:email'],
     },
+    
+    'strava': {
+        'client_id': os.environ.get('STRAVA_CLIENT_ID'),
+        'client_secret': os.environ.get('STRAVA_CLIENT_SECRET'),
+        'authorize_url': 'https://www.strava.com/oauth/authorize',
+        'token_url': 'https://www.strava.com/api/v3/oauth/token',
+        'userinfo': {
+            'url': 'https://www.strava.com/api/v3/athlete',
+            'email': lambda json: json['firstname'],
+        },
+        'scopes': ['profile:read_all,activity:read_all'],
+    },
 }
 
 db = SQLAlchemy(app)
